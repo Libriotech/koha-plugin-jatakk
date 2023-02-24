@@ -1,0 +1,5 @@
+<div class="btn-group">
+    <a id="jatakk-button" class="btn btn-default btn-sm" href="/cgi-bin/koha/plugins/run.pl?class=[% CLASS %]&method=data&biblionumber=[% biblionumber %]">
+        <i class="fa fa-link"></i> Jatakk?
+    </a>
+</div>

@@ -1,0 +1,74 @@
+
+[% INCLUDE 'doc-head-open.inc' %]
+ <title>Koha: Jatakk for biblionumber [% biblionumber %]</title>
+[% INCLUDE 'doc-head-close.inc' %]
+</head>
+<body>
+[% INCLUDE 'header.inc' %]
+[% INCLUDE 'cat-search.inc' %]
+
+<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; Jatakk? &rsaquo; Sjekker Jatakk for [% biblionumber %]</div>
+
+<div id="doc3">
+<div class="container-fluid">
+<div class="row">
+<div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+
+    <h1>Jatakk? for biblionumber [% biblionumber %]</h1>
+
+    <p><a href="/cgi-bin/koha/catalogue/detail.pl?biblionumber=[% biblionumber %]">Tilbake til posten i Koha</a></p>
+
+    [% IF biblio.biblioitem.isbn %]
+        <p>ISBN fra posten: [% biblio.biblioitem.isbn %]</p>
+    [% ELSE %]
+        <p>Fant ikke noe ISBN i posten!</p>
+    [% END %]
+
+    [% IF datas.size %]
+
+        [% FOREACH data IN datas %]
+
+            [% IF data.x_error %]
+                <p>FEIL: [% data.x_error %] ([% data.x_url %])</p>
+            [% END %]
+
+            <h2>Data for [% data.x_isbn %] ([% data.bibnavn %], [% data.serverdate %])</h2>
+
+            [% FOREACH t IN data.titles %]
+
+            <div style="border: 1px solid black; padding: 1em; background-color: white; padding-bottom: 1em;">
+
+            <h3 style="font-weight: bold;">[% IF t.title %]"[% t.title %]"[% ELSE %][Ukjent tittel][% END %][% IF t.creator %] av [% t.creator %][% END %]</h3>
+
+            [% IF t.imageurl %]
+            <p><img style="max-height: 100px;" src="[% t.imageurl %]"/></p>
+            [% END %]
+
+            [% IF t.date %]<p>År: [% t.date %]</p>[% END %]
+            [% IF t.isbn %]<p>ISBN: [% t.isbn %]</p>[% END %]
+            [% IF t.material %]<p>Format: [% t.material %] ([% t.format %])</p>[% END %]
+            [% IF t.lang %]<p>Språk: [% t.lang %]</p>[% END %]
+            <p style="font-weight: bold;">Ønskede eksemplar: [% t.copieswanted %]</p>
+            <p>Kommentar: "[% t.comment %]"</p>
+            <p><a href="[% t.weburl %]" target="_blank">Vis posten i [% data.bibnavn %] (nytt vindu)</a></p>
+
+            </div>
+
+            [% END %]
+
+            <!-- [% data.x_data_raw %] -->
+
+        [% END %]
+
+    [% ELSE %]
+
+        <p>Ikke noe data!</p> 
+
+    [% END %]
+
+
+</div>
+</div>
+</div>
+
+[% INCLUDE 'intranet-bottom.inc' %]
